@@ -1,4 +1,5 @@
 # Account
+An account represents your company organization.
 
 ## The account object
 Parameter | Type | Description
