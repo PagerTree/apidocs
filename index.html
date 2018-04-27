@@ -602,11 +602,10 @@ You must replace <code>&lt;token&gt;</code> with your personal API key.
 <h3 id='filter-parameters'>Filter Parameters</h3>
 <p>For any resource you are querying via the top-level API you can pass any attributes of those objects to filter on.</p>
 
-<p>An example query might look like the following:</p>
-<pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-  -H <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="se">\</span>
-  https://api.pagertree.com/user?name<span class="o">=</span>austin
-</code></pre>
+<p>An example query url might look like the following:</p>
+
+<p><code>https://api.pagertree.com/user?name=austin</code></p>
+
 <p>You can also pass modifiers to modify the filters. The modifiers must be in the query parameter <code>ops</code> and have the format <code>&lt;attribute_name&gt;:&lt;operation&gt;</code>, where operation is any of the following:</p>
 <h3 id='operators'>Operators</h3>
 <table><thead>
@@ -624,7 +623,7 @@ You must replace <code>&lt;token&gt;</code> with your personal API key.
 <tr>
 <td>ne</td>
 <td>!==</td>
-<td>attribute === value</td>
+<td>attribute !== value</td>
 </tr>
 <tr>
 <td>lt</td>
@@ -658,11 +657,10 @@ You must replace <code>&lt;token&gt;</code> with your personal API key.
 </tr>
 </tbody></table>
 
-<p>An example query might look like the following:</p>
-<pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-  -H <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="se">\</span>
-  https://api.pagertree.com/user?name<span class="o">=</span>austin&amp;ops<span class="o">=</span>name:beginsWith
-</code></pre><h1 id='account'>Account</h1>
+<p>An example query url might look like the following:</p>
+
+<p><code>https://api.pagertree.com/user?name=austin&amp;ops=name:beginsWith</code></p>
+<h1 id='account'>Account</h1>
 <p>An account represents your company organization.</p>
 <h2 id='the-account-object'>The account object</h2>
 <table><thead>
