@@ -108,13 +108,9 @@ total_count | number | Number of total elements that exist.
 
 For any resource you are querying via the top-level API you can pass any attributes of those objects to filter on.
 
-An example query might look like the following:
+An example query url might look like the following:
 
-```shell
-curl -H "Content-Type: application/json" \
-  -H "Authorization: <token>" \
-  https://api.pagertree.com/user?name=austin
-```
+`https://api.pagertree.com/user?name=austin`
 
 You can also pass modifiers to modify the filters. The modifiers must be in the query parameter `ops` and have the format `<attribute_name>:<operation>`, where operation is any of the following:
 
@@ -123,7 +119,7 @@ You can also pass modifiers to modify the filters. The modifiers must be in the 
 Name | Type | Comparison
 ---- | ---- | ----------
 equals | === | attribute === value
-ne | !== | attribute === value
+ne | !== | attribute !== value
 lt | < | attribute < value
 lte | <=  | attribute <= value
 gt | > | attribute > value
@@ -131,10 +127,6 @@ gte | >= | attribute >= value
 beginsWith | string begins with | attribute.beginsWith(value)
 contains | string or array contains | attribute.contains(value)
 
-An example query might look like the following:
+An example query url might look like the following:
 
-```shell
-curl -H "Content-Type: application/json" \
-  -H "Authorization: <token>" \
-  https://api.pagertree.com/user?name=austin&ops=name:beginsWith
-```
+`https://api.pagertree.com/user?name=austin&ops=name:beginsWith`
