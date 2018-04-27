@@ -43,9 +43,8 @@ You must replace <code>&lt;token&gt;</code> with your personal API key.
 </aside>
 
 # Errors
-PagerTree uses conventional HTTP response code to indicate the success or failure of an API request. In general: codes in the `2xx` range indicate success. Codes in the `4xx` range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a wrongly formatted object, etc.). Codes in the `5xx` range indicate an error with PagerTree's servers (these are rare).
 
-Most `4xx` errors that could be handled programmatically (e.g. a bad format) include and error response that briefly explains the error.
+> An example error message
 
 ```json
 {
@@ -57,6 +56,9 @@ Most `4xx` errors that could be handled programmatically (e.g. a bad format) inc
 }
 ```
 
+PagerTree uses conventional HTTP response code to indicate the success or failure of an API request. In general: codes in the `2xx` range indicate success. Codes in the `4xx` range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a wrongly formatted object, etc.). Codes in the `5xx` range indicate an error with PagerTree's servers (these are rare).
+
+Most `4xx` errors that could be handled programmatically (e.g. a bad format) include and error response that briefly explains the error.
 
 Error Code | Meaning | Description
 ---------- | ------- | -----
@@ -109,7 +111,7 @@ stripe_customer | object | The Stripe customer object.
 
 ## Retrieve an account
 
-### HTTP Request
+### Definition
 
 `GET https://api.pagertree.com/account/:id`
 
@@ -145,9 +147,42 @@ curl -H "Content-Type: application/json" \
 ```
 
 # User
+
 A user represents an actual person in your organization.
 
 ## The user object
+
+> Example Response
+
+```json
+{
+  "sid": "acc_H1fh_yx6z",
+  "id": "usr_r1mnuJg6z",
+  "createdAt": "2018-04-27T00:02:50.662Z",
+  "updatedAt": "2018-04-27T15:35:41.139Z",
+  "lastlogin": 1524787371,
+  "name": "Austin",
+  "email": "austinrmiller1991@gmail.com",
+  "preferences": {
+      "alert_slack": false,
+      "alert_email": true,
+      "alert_voice": false,
+      "report_performance": true,
+      "report_oncall": true,
+      "timezone": "America/Los_Angeles",
+      "wizard_dragdrop": true,
+      "alert_push": true,
+      "alert_sms": false,
+      "wizard_quickcreate": true
+  },
+   "roles": {
+       "broadcast": true,
+       "admin": true,
+       "admin_billing": true
+   }
+}
+```
+
 Parameter | Type | Description
 --------- | ---- | -----------
 sid | string | Security identifier for the object.
@@ -167,18 +202,7 @@ roles | object | A hash of user roles
 
 ## Create a user
 
-### HTTP Request
-
-`POST https://api.pagertree.com/user/:id`
-
-### Body Parameters
-
-Parameter | Description
---------- | -----------
-name | The name of the user.
-email | The email of the user.
-
-See the [user object](#the-user-object) for optional parameters.
+> Example Request
 
 ```shell
 curl -H "Content-Type: application/json" \
@@ -186,10 +210,6 @@ curl -H "Content-Type: application/json" \
   -d '{"name": "Austin", "email": "austinrmiller1991@gmail.com"}'\
   https://api.pagertree.com/user
 ```
-
-### Returns
-
-The newly created user object if the request succeeded. Returns [an error](#errors) otherwise.
 
 > The above command returns JSON structured like this:
 
@@ -213,26 +233,32 @@ The newly created user object if the request succeeded. Returns [an error](#erro
 }
 ```
 
-## Retrieve a user
+### Definition
 
-### HTTP Request
+`POST https://api.pagertree.com/user/:id`
 
-`GET https://api.pagertree.com/user/:id`
-
-### URL Parameters
+### Body Parameters
 
 Parameter | Description
 --------- | -----------
-id | The id of the user to retrieve
+name | The name of the user.
+email | The email of the user.
+
+See the [user object](#the-user-object) for optional parameters.
+
+### Returns
+
+The newly created user object if the request succeeded. Returns [an error](#errors) otherwise.
+
+## Retrieve a user
+
+> Example Request
 
 ```shell
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
   https://api.pagertree.com/account/:id
 ```
-
-### Returns
-Returns a user if a valid user `id` was provided. Returns [an error](#errors) otherwise.
 
 > The above command returns JSON structured like this:
 
@@ -265,19 +291,22 @@ Returns a user if a valid user `id` was provided. Returns [an error](#errors) ot
 }
 ```
 
-## Update a user
+### Definition
 
-### HTTP Request
-
-`PUT https://api.pagertree.com/user/:id`
+`GET https://api.pagertree.com/user/:id`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-id | The id of the user to update
+id | The id of the user to retrieve
 
-See the [user object](#the-user-object) for all parameters.
+### Returns
+Returns a user if a valid user `id` was provided. Returns [an error](#errors) otherwise.
+
+## Update a user
+
+> Example Request
 
 ```shell
 curl -H "Content-Type: application/json" \
@@ -286,9 +315,6 @@ curl -H "Content-Type: application/json" \
   -X PUT \
   https://api.pagertree.com/user/:id
 ```
-
-### Returns
-The newly updated user object if the request succeeded. Returns [an error](#errors) otherwise.
 
 > The above command returns JSON structured like this:
 
@@ -320,9 +346,33 @@ The newly updated user object if the request succeeded. Returns [an error](#erro
 }
 ```
 
+### Definition
+
+`PUT https://api.pagertree.com/user/:id`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The id of the user to update
+
+See the [user object](#the-user-object) for all parameters.
+
+### Returns
+The newly updated user object if the request succeeded. Returns [an error](#errors) otherwise.
+
 ## Delete a user
 
-### HTTP Request
+> Example Request
+
+```shell
+curl -H "Content-Type: application/json" \
+  -H "Authorization: <token>" \
+  -X DELETE \
+  https://api.pagertree.com/user/:id
+```
+
+### Definition
 
 `DELETE https://api.pagertree.com/user/:id`
 
@@ -333,23 +383,13 @@ Parameter | Description
 id | The id of the user to delete
 
 
-```shell
-curl -H "Content-Type: application/json" \
-  -H "Authorization: <token>" \
-  -X DELETE \
-  https://api.pagertree.com/user/:id
-```
-
 ### Returns
 
 A `204 - NO CONTENT` on success or `404 - NOT FOUND` on failure.
 
 ## List all users
 
-### HTTP Request
-
-`GET https://api.pagertree.com/user`
-
+> Example Request
 
 ```shell
 curl -H "Content-Type: application/json" \
@@ -357,18 +397,22 @@ curl -H "Content-Type: application/json" \
   https://api.pagertree.com/user
 ```
 
-### Returns
-A paginated response with a `data` array property. Each item in the array is a user object.
-
 > The above command returns JSON structured like this:
 
 ```json
 {
-  data: [
-    {user...},
-    {user...},
+  "data": [
+    {...},
+    {...},
   ],
-  has_more: false,
-  total_count: 2
+  "has_more": false,
+  "total_count": 2
 }
 ```
+
+### Definition
+
+`GET https://api.pagertree.com/user`
+
+### Returns
+A paginated response with a `data` array property. Each item in the array is a user object.
