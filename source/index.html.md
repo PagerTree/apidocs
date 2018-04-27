@@ -195,7 +195,6 @@ curl -H "Content-Type: application/json" \
   "sid":"acc_H1fh_yx6z",
   "id":"tem_ByxQ3ukgTM",
   "createdAt":"2018-04-27T00:02:51.010Z",
-  "updatedAt":"2018-04-27T00:03:25.867Z",
   "name":"Devops",
   "member_user_ids":[],
   "schedule_id":"skd_BJzQnuklaG"
