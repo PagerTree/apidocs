@@ -1,4 +1,4 @@
-# Alert
+# Log
 
 A log represents a message that must be sent to the user.
 
