@@ -5,6 +5,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
 includes:
+ - incident
  - integration
  - schedule
  - team
