@@ -83,12 +83,12 @@ Error Code | Meaning | Description
 500 | Internal Server Error | Something went wrong on PagerTree's servers. (These are rare.)
 
 
-# Pagination
-All top-level API resources have support for bluk fetches via the "list" API methods. These list API methods share a common structure, taking at least these two parameters: `limit` and `offset`.
+# Pagination and Filters
+All top-level API resources have support for bulk fetches via the "list" API methods. These list API methods share a common structure, taking at least these two parameters: `limit` and `offset`.
 
 Alternatively you may request pages by providing these two parameters: `limit` and `page`.
 
-### Query Parameters
+### Pagination Parameters
 
 Parameter | Default | Description
 --------- | ----------- | -----------
@@ -103,3 +103,38 @@ Parameter | Type | Description
 data | array | The array of objects requested.
 has_more | boolean | Whether or not there are more elements available after this request. If `false`, this list comprises the end of the set.
 total_count | number | Number of total elements that exist.
+
+### Filter Parameters
+
+For any resource you are querying via the top-level API you can pass any attributes of those objects to filter on.
+
+An example query might look like the following:
+
+```shell
+curl -H "Content-Type: application/json" \
+  -H "Authorization: <token>" \
+  https://api.pagertree.com/user?name=austin
+```
+
+You can also pass modifiers to modify the filters. The modifiers must be in the query parameter `ops` and have the format `<attribute_name>:<operation>`, where operation is any of the following:
+
+### Operators
+
+Name | Type | Comparison
+---- | ---- | ----------
+equals | === | attribute === value
+ne | !== | attribute === value
+lt | < | attribute < value
+lte | <=  | attribute <= value
+gt | > | attribute > value
+gte | >= | attribute >= value
+beginsWith | string begins with | attribute.beginsWith(value)
+contains | string or array contains | attribute.contains(value)
+
+An example query might look like the following:
+
+```shell
+curl -H "Content-Type: application/json" \
+  -H "Authorization: <token>" \
+  https://api.pagertree.com/user?name=austin&ops=name:beginsWith
+```
