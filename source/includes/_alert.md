@@ -25,7 +25,6 @@ Parameter | Type | Description
 sid | string | Security identifier for the object.
 id | string | Unique identifier for the object.
 createdAt | timestamp | When this object was first created.
-updatedAt | timestamp | When this object last updated.
 source_id | string | The source that created this alert. Could be an incident, broadcast, user, or PagerTree self generated.
 user_id | string | The id of the user that needs to be notified.
 channels | array | An array of channels to notify this user on.

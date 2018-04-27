@@ -10,6 +10,7 @@ includes:
  - event
  - incident
  - integration
+ - log
  - schedule
  - team
  - user
