@@ -60,7 +60,7 @@ Parameter | Description
 owner_id | The resource that owns this log.
 content | A message or data.
 
-See the [user object](#the-user-object) for optional parameters.
+See the [log object](#the-log-object) for optional parameters.
 
 ### Returns
 
