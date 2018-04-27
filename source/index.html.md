@@ -5,6 +5,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
 includes:
+ - alert
  - broadcast
  - event
  - incident
