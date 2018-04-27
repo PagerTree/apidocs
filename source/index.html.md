@@ -5,6 +5,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
 includes:
+ - account
  - alert
  - broadcast
  - event
@@ -14,6 +15,7 @@ includes:
  - notification
  - schedule
  - team
+ - token
  - user
 
 search: true
@@ -101,57 +103,3 @@ Parameter | Type | Description
 data | array | The array of objects requested.
 has_more | boolean | Whether or not there are more elements available after this request. If `false`, this list comprises the end of the set.
 total_count | number | Number of total elements that exist.
-
-# Account
-
-## The account object
-Parameter | Type | Description
---------- | ---- | -----------
-sid | string | Security identifier for the object.
-id | string | Unique identifier for the object.
-createdAt | timestamp | When this object was first created.
-updatedAt | timestamp | When this object last updated.
-active | boolean | Does the account have an active subscript (active or trialing).
-name | string | The name of the account.
-token_id | string | The unique identifier of the token to use for invites to join the account.
-hippanotifications | boolean | Are HIPPA notification enabled?
-stripe_customer_id | string | The Stripe customer id
-stripe_subscription | object | The Stripe subscription object.
-stripe_customer | object | The Stripe customer object.
-
-## Retrieve an account
-
-### Definition
-
-`GET https://api.pagertree.com/account/:id`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-id | The id of the account to retrieve
-
-```shell
-curl -H "Content-Type: application/json" \
-  -H "Authorization: <token>" \
-  https://api.pagertree.com/account/:id
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "sid": "acc_H1fh_yx6z",
-  "id": "acc_H1fh_yx6z",
-  "updatedAt": "2018-04-27T00:03:06.098Z",
-  "createdAt": "2018-04-27T00:02:50.419Z",
-  "name": "PagerTree LLC",
-  "setup_complete": 1524787386,
-  "token_id": "tkn_ByGE2ukxpf",
-  "hippanotifications": false,
-  "active": true,
-  "stripe_customer_id": "cus_CkpiEkrJ40EIJd",
-  "stripe_customer": {...},
-  "stripe_subscription": {...}
-}
-```
