@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="https://pagertree.com/assets/img/favicon.ico">
     <title>PagerTree API Reference</title>
 
     <style>
@@ -270,6 +271,9 @@
                   <li>
                     <a href="#list-all-alerts" class="toc-h2 toc-link" data-title="list-all-alerts">List all alerts</a>
                   </li>
+                  <li>
+                    <a href="#list-all-notifications-for-an-lert" class="toc-h2 toc-link" data-title="list-all-notifications-for-an-lert">List all notifications for an lert</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -332,6 +336,12 @@
                   </li>
                   <li>
                     <a href="#list-all-incidents" class="toc-h2 toc-link" data-title="list-all-incidents">List all incidents</a>
+                  </li>
+                  <li>
+                    <a href="#acknowledge-an-incident" class="toc-h2 toc-link" data-title="acknowledge-an-incident">Acknowledge an incident</a>
+                  </li>
+                  <li>
+                    <a href="#resolve-an-incident" class="toc-h2 toc-link" data-title="resolve-an-incident">Resolve an incident</a>
                   </li>
               </ul>
           </li>
@@ -398,6 +408,9 @@
                   <li>
                     <a href="#update-a-schedule" class="toc-h2 toc-link" data-title="update-a-schedule">Update a schedule</a>
                   </li>
+                  <li>
+                    <a href="#list-all-current-events-for-a-schedule" class="toc-h2 toc-link" data-title="list-all-current-events-for-a-schedule">List all current events for a schedule</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -455,6 +468,9 @@
                   <li>
                     <a href="#list-all-users" class="toc-h2 toc-link" data-title="list-all-users">List all users</a>
                   </li>
+                  <li>
+                    <a href="#list-all-current-events-for-a-user" class="toc-h2 toc-link" data-title="list-all-current-events-for-a-user">List all current events for a user</a>
+                  </li>
               </ul>
           </li>
       </div>
@@ -486,7 +502,7 @@ The above command returns JSON structured like this:</p>
 <p><code>Authorization: &lt;token&gt;</code></p>
 
 <aside class="notice">
-You must replace <code>&lt;token&gt;</code> with your personal API key.
+You must replace <code>&lt;token&gt;</code> with your personal token.
 </aside>
 <h1 id='errors'>Errors</h1>
 <blockquote>
@@ -726,21 +742,7 @@ You must replace <code>&lt;token&gt;</code> with your personal API key.
 <td>The Stripe customer object.</td>
 </tr>
 </tbody></table>
-<h2 id='retrieve-an-account'>Retrieve an account</h2><h3 id='definition'>Definition</h3>
-<p><code>GET https://api.pagertree.com/account/:id</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>The id of the account to retrieve</td>
-</tr>
-</tbody></table>
-<pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+<h2 id='retrieve-an-account'>Retrieve an account</h2><pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="se">\</span>
   https://api.pagertree.com/account/:id
 </code></pre>
@@ -761,7 +763,21 @@ You must replace <code>&lt;token&gt;</code> with your personal API key.
   </span><span class="s2">"stripe_customer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w">
   </span><span class="s2">"stripe_subscription"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h2 id='update-an-account'>Update an account</h2>
+</span></code></pre><h3 id='definition'>Definition</h3>
+<p><code>GET https://api.pagertree.com/account/:id</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The id of the account to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='update-an-account'>Update an account</h2>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
@@ -938,6 +954,41 @@ You must replace <code>&lt;token&gt;</code> with your personal API key.
 <p><code>GET https://api.pagertree.com/alert</code></p>
 <h3 id='returns-2'>Returns</h3>
 <p>A paginated response with a <code>data</code> array property. Each item in the array is a alert object.</p>
+<h2 id='list-all-notifications-for-an-lert'>List all notifications for an lert</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="se">\</span>
+  https://api.pagertree.com/alert/:id/notifications
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"has_more"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"total_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><h3 id='definition-3'>Definition</h3>
+<p><code>GET https://api.pagertree.com/alert/:id/notifications</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The id of the alert to get notifications for</td>
+</tr>
+</tbody></table>
+<h3 id='returns-3'>Returns</h3>
+<p>A paginated response with a <code>data</code> array property. Each item in the array is a notification object.</p>
 <h1 id='broadcast'>Broadcast</h1>
 <p>A broadcast is mass alert that can be sent to users.</p>
 <h2 id='the-broadcast-object'>The broadcast object</h2>
@@ -1693,6 +1744,95 @@ You must replace <code>&lt;token&gt;</code> with your personal API key.
 <p><code>GET https://api.pagertree.com/incident</code></p>
 <h3 id='returns-5'>Returns</h3>
 <p>A paginated response with a <code>data</code> array property. Each item in the array is a incident object.</p>
+<h2 id='acknowledge-an-incident'>Acknowledge an incident</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="se">\</span>
+  -X POST
+  https://api.pagertree.com/incident/:id/acknowledge
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sid"</span><span class="p">:</span><span class="s2">"acc_H1fh_yx6z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"inc_H1DxGWbpG"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="s2">"2018-04-27T20:02:55.098Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="s2">"2018-04-27T20:04:47.949Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="s2">"CPU usage over 95%"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="s2">"PROD APP 1 CPU load over 95% for 5 minutes."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created"</span><span class="p">:</span><span class="mi">1524859374</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"acknowledged"</span><span class="p">:</span><span class="mi">1524859483</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"source_id"</span><span class="p">:</span><span class="s2">"usr_r1mnuJg6z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"d_team_id"</span><span class="p">:</span><span class="s2">"tem_ByxQ3ukgTM"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"d_user_id"</span><span class="p">:</span><span class="s2">"usr_r1mnuJg6z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"urgency"</span><span class="p">:</span><span class="s2">"critical"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"acknowledged"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"workflows"</span><span class="p">:[{</span><span class="err">...</span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='definition-6'>Definition</h3>
+<p><code>POST https://api.pagertree.com/incident/:id/acknowledge</code></p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The id of the incident to acknowledge</td>
+</tr>
+</tbody></table>
+<h3 id='returns-6'>Returns</h3>
+<p>The newly acknowledged incident object if the request succeeded. Returns <a href="#errors">an error</a> otherwise.</p>
+<h2 id='resolve-an-incident'>Resolve an incident</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="se">\</span>
+  -X POST
+  https://api.pagertree.com/incident/:id/resolve
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sid"</span><span class="p">:</span><span class="s2">"acc_H1fh_yx6z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"inc_H1DxGWbpG"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="s2">"2018-04-27T20:02:55.098Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="s2">"2018-04-27T20:04:47.949Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="s2">"CPU usage over 95%"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="s2">"PROD APP 1 CPU load over 95% for 5 minutes."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created"</span><span class="p">:</span><span class="mi">1524859374</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"acknowledged"</span><span class="p">:</span><span class="mi">1524859483</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"resolved"</span><span class="p">:</span><span class="mi">1524859487</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"source_id"</span><span class="p">:</span><span class="s2">"usr_r1mnuJg6z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"d_team_id"</span><span class="p">:</span><span class="s2">"tem_ByxQ3ukgTM"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"d_user_id"</span><span class="p">:</span><span class="s2">"usr_r1mnuJg6z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"urgency"</span><span class="p">:</span><span class="s2">"high"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"resolved"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"workflows"</span><span class="p">:[{</span><span class="err">...</span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='definition-7'>Definition</h3>
+<p><code>POST https://api.pagertree.com/incident/:id/resolve</code></p>
+<h3 id='url-parameters-5'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The id of the incident to resolve</td>
+</tr>
+</tbody></table>
+<h3 id='returns-7'>Returns</h3>
+<p>The newly resolve incident object if the request succeeded. Returns <a href="#errors">an error</a> otherwise.</p>
 <h1 id='integration'>Integration</h1>
 <p>A integration connects PagerTree to 3rd party applications.</p>
 <h2 id='the-integration-object'>The integration object</h2>
@@ -2402,6 +2542,50 @@ You must replace <code>&lt;token&gt;</code> with your personal API key.
 <p>See the <a href="#the-schedule-object">schedule object</a> for all parameters.</p>
 <h3 id='returns-2'>Returns</h3>
 <p>The newly updated schedule object if the request succeeded. Returns <a href="#errors">an error</a> otherwise.</p>
+<h2 id='list-all-current-events-for-a-schedule'>List all current events for a schedule</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="se">\</span>
+  https://api.pagertree.com/schedule/:id/currentevents
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"sid"</span><span class="p">:</span><span class="s2">"acc_H1fh_yx6z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"evt_rJ0XMGWTM"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="s2">"2018-04-27T21:12:05.774Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="s2">"2018-04-27T21:22:47.927Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"schedule_id"</span><span class="p">:</span><span class="s2">"skd_BJzQnuklaG"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"usr_r1mnuJg6z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"start"</span><span class="p">:</span><span class="mi">1524898800</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"end"</span><span class="p">:</span><span class="mi">1524985200</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"repeat"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"layer"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"dow"</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"frequency"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"exceptions"</span><span class="p">:[]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><h3 id='definition-3'>Definition</h3>
+<p><code>GET https://api.pagertree.com/schedule/:id/currentevents</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The id of the schedule to get current events for</td>
+</tr>
+</tbody></table>
+<h3 id='returns-3'>Returns</h3>
+<p>An array of any events in which the schedule is currently on-call. Each item in the array is a event object.</p>
 <h1 id='team'>Team</h1>
 <p>A team represents an actual or logical team within your organization. It is comprised of <a href="#the-user-object">users</a> that are called team members.</p>
 <h2 id='the-team-object'>The team object</h2>
@@ -3026,6 +3210,50 @@ You must replace <code>&lt;token&gt;</code> with your personal API key.
 <p><code>GET https://api.pagertree.com/user</code></p>
 <h3 id='returns-5'>Returns</h3>
 <p>A paginated response with a <code>data</code> array property. Each item in the array is a user object.</p>
+<h2 id='list-all-current-events-for-a-user'>List all current events for a user</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="se">\</span>
+  https://api.pagertree.com/user/:id/currentevents
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"sid"</span><span class="p">:</span><span class="s2">"acc_H1fh_yx6z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"evt_rJ0XMGWTM"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="s2">"2018-04-27T21:12:05.774Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="s2">"2018-04-27T21:22:47.927Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"schedule_id"</span><span class="p">:</span><span class="s2">"skd_BJzQnuklaG"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"usr_r1mnuJg6z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"start"</span><span class="p">:</span><span class="mi">1524898800</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"end"</span><span class="p">:</span><span class="mi">1524985200</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"repeat"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"layer"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"dow"</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"frequency"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"exceptions"</span><span class="p">:[]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><h3 id='definition-6'>Definition</h3>
+<p><code>GET https://api.pagertree.com/user/:id/currentevents</code></p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The id of the user to get current events for</td>
+</tr>
+</tbody></table>
+<h3 id='returns-6'>Returns</h3>
+<p>An array of any events in which the user is currently on-call for. Each item in the array is a event object.</p>
 
       </div>
       <div class="dark-box">
