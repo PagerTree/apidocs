@@ -240,3 +240,94 @@ curl -H "Content-Type: application/json" \
 
 ### Returns
 A paginated response with a `data` array property. Each item in the array is a incident object.
+
+## Acknowledge an incident
+
+> Example Request
+
+```shell
+curl -H "Content-Type: application/json" \
+  -H "Authorization: <token>" \
+  -X POST
+  https://api.pagertree.com/incident/:id/acknowledge
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "sid":"acc_H1fh_yx6z",
+  "id":"inc_H1DxGWbpG",
+  "createdAt":"2018-04-27T20:02:55.098Z",
+  "updatedAt":"2018-04-27T20:04:47.949Z",
+  "title":"CPU usage over 95%",
+  "description":"PROD APP 1 CPU load over 95% for 5 minutes.",
+  "created":1524859374,
+  "acknowledged":1524859483,
+  "source_id":"usr_r1mnuJg6z",
+  "d_team_id":"tem_ByxQ3ukgTM",
+  "d_user_id":"usr_r1mnuJg6z",
+  "urgency":"critical",
+  "status":"acknowledged",
+  "workflows":[{...}]
+}
+```
+
+### Definition
+
+`POST https://api.pagertree.com/incident/:id/acknowledge`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The id of the incident to acknowledge
+
+### Returns
+The newly acknowledged incident object if the request succeeded. Returns [an error](#errors) otherwise.
+
+## Resolve an incident
+
+> Example Request
+
+```shell
+curl -H "Content-Type: application/json" \
+  -H "Authorization: <token>" \
+  -X POST
+  https://api.pagertree.com/incident/:id/resolve
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "sid":"acc_H1fh_yx6z",
+  "id":"inc_H1DxGWbpG",
+  "createdAt":"2018-04-27T20:02:55.098Z",
+  "updatedAt":"2018-04-27T20:04:47.949Z",
+  "title":"CPU usage over 95%",
+  "description":"PROD APP 1 CPU load over 95% for 5 minutes.",
+  "created":1524859374,
+  "acknowledged":1524859483,
+  "resolved":1524859487,
+  "source_id":"usr_r1mnuJg6z",
+  "d_team_id":"tem_ByxQ3ukgTM",
+  "d_user_id":"usr_r1mnuJg6z",
+  "urgency":"high",
+  "status":"resolved",
+  "workflows":[{...}]
+}
+```
+
+### Definition
+
+`POST https://api.pagertree.com/incident/:id/resolve`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The id of the incident to resolve
+
+### Returns
+The newly resolve incident object if the request succeeded. Returns [an error](#errors) otherwise.

@@ -134,3 +134,48 @@ See the [schedule object](#the-schedule-object) for all parameters.
 
 ### Returns
 The newly updated schedule object if the request succeeded. Returns [an error](#errors) otherwise.
+
+## List all current events for a schedule
+
+> Example Request
+
+```shell
+curl -H "Content-Type: application/json" \
+  -H "Authorization: <token>" \
+  https://api.pagertree.com/schedule/:id/currentevents
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "sid":"acc_H1fh_yx6z",
+    "id":"evt_rJ0XMGWTM",
+    "createdAt":"2018-04-27T21:12:05.774Z",
+    "updatedAt":"2018-04-27T21:22:47.927Z",
+    "schedule_id":"skd_BJzQnuklaG",
+    "user_id":"usr_r1mnuJg6z",
+    "start":1524898800,
+    "end":1524985200,
+    "repeat":false,
+    "layer":2,
+    "dow":[1,2,3,4,5,6,7],
+    "frequency":1,
+    "exceptions":[]
+  }
+]
+```
+
+### Definition
+
+`GET https://api.pagertree.com/schedule/:id/currentevents`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The id of the schedule to get current events for
+
+### Returns
+An array of any events in which the schedule is currently on-call. Each item in the array is a event object.

@@ -100,3 +100,39 @@ curl -H "Content-Type: application/json" \
 
 ### Returns
 A paginated response with a `data` array property. Each item in the array is a alert object.
+
+## List all notifications for an lert
+
+> Example Request
+
+```shell
+curl -H "Content-Type: application/json" \
+  -H "Authorization: <token>" \
+  https://api.pagertree.com/alert/:id/notifications
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  "data": [
+    {...},
+    {...},
+  ],
+  "has_more": false,
+  "total_count": 2
+]
+```
+
+### Definition
+
+`GET https://api.pagertree.com/alert/:id/notifications`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The id of the alert to get notifications for
+
+### Returns
+A paginated response with a `data` array property. Each item in the array is a notification object.

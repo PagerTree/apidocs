@@ -268,3 +268,48 @@ curl -H "Content-Type: application/json" \
 
 ### Returns
 A paginated response with a `data` array property. Each item in the array is a user object.
+
+## List all current events for a user
+
+> Example Request
+
+```shell
+curl -H "Content-Type: application/json" \
+  -H "Authorization: <token>" \
+  https://api.pagertree.com/user/:id/currentevents
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "sid":"acc_H1fh_yx6z",
+    "id":"evt_rJ0XMGWTM",
+    "createdAt":"2018-04-27T21:12:05.774Z",
+    "updatedAt":"2018-04-27T21:22:47.927Z",
+    "schedule_id":"skd_BJzQnuklaG",
+    "user_id":"usr_r1mnuJg6z",
+    "start":1524898800,
+    "end":1524985200,
+    "repeat":false,
+    "layer":2,
+    "dow":[1,2,3,4,5,6,7],
+    "frequency":1,
+    "exceptions":[]
+  }
+]
+```
+
+### Definition
+
+`GET https://api.pagertree.com/user/:id/currentevents`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The id of the user to get current events for
+
+### Returns
+An array of any events in which the user is currently on-call for. Each item in the array is a event object.
