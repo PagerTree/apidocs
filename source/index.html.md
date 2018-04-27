@@ -51,7 +51,7 @@ PagerTree uses JSON Web Tokens (JWTs) to allow access to the API. You will need 
 `Authorization: <token>`
 
 <aside class="notice">
-You must replace <code>&lt;token&gt;</code> with your personal API key.
+You must replace <code>&lt;token&gt;</code> with your personal token.
 </aside>
 
 # Errors

@@ -18,16 +18,6 @@ stripe_customer | object | The Stripe customer object.
 
 ## Retrieve an account
 
-### Definition
-
-`GET https://api.pagertree.com/account/:id`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-id | The id of the account to retrieve
-
 ```shell
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
@@ -52,6 +42,16 @@ curl -H "Content-Type: application/json" \
   "stripe_subscription": {...}
 }
 ```
+
+### Definition
+
+`GET https://api.pagertree.com/account/:id`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The id of the account to retrieve
 
 ## Update an account
 
