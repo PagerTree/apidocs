@@ -1,6 +1,6 @@
 # Log
 
-A log represents a message that must be sent to the user.
+A log message associated with a resource.
 
 ## The log object
 

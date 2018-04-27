@@ -11,6 +11,7 @@ includes:
  - incident
  - integration
  - log
+ - notification
  - schedule
  - team
  - user
