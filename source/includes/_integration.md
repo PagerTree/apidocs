@@ -1,4 +1,4 @@
-# User
+# Integration
 
 A integration connects PagerTree to 3rd party applications.
 
