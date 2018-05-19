@@ -18,7 +18,7 @@ An event represents a calendar event. It can be one time or recurring.
   "end":1524985200,
   "repeat":false,
   "layer":2,
-  "dow":[1,2,3,4,5,6,7],
+  "dow":[0,1,2,3,4,5,6],
   "frequency":1,
   "exceptions":[]
 }
@@ -38,7 +38,7 @@ end | number | A unix timestamp of when the event ends.
 repeat | boolean | Flag indicating if this is a reoccurring event.
 repeatend | number | A unix timestamp of when the repeating event ends.
 p_event_id | string | If this event is recurring, and a modified occurrence, the parent event id of the repeating event.
-dow | array | Array of days of the week this event repeats on 1 (Monday) - 7 (Sunday). [ISO Week Date](https://en.wikipedia.org/wiki/ISO_week_date)
+dow | array | Array of days of the week this event repeats on 0 (Sunday) - 6 (Saturday). [Moment Day of Week](https://momentjs.com/docs/#/get-set/day/)
 frequency | number | Number of days between repeats.
 exceptions | object | An array of unix timestamps of the start date of the exceptions.
 
