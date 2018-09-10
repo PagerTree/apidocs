@@ -11,7 +11,7 @@ updatedAt | timestamp | When this object last updated.
 active | boolean | Does the account have an active subscript (active or trialing).
 name | string | The name of the account.
 token_id | string | The unique identifier of the token to use for invites to join the account.
-hippanotifications | boolean | Are HIPPA notification enabled?
+hipaanotifications | boolean | Are HIPAA notification enabled?
 stripe_customer_id | string | The Stripe customer id
 stripe_subscription | object | The Stripe subscription object.
 stripe_customer | object | The Stripe customer object.
@@ -35,7 +35,7 @@ curl -H "Content-Type: application/json" \
   "name": "PagerTree LLC",
   "setup_complete": 1524787386,
   "token_id": "tkn_ByGE2ukxpf",
-  "hippanotifications": false,
+  "hipaanotifications": false,
   "active": true,
   "stripe_customer_id": "cus_CkpiEkrJ40EIJd",
   "stripe_customer": {...},
@@ -60,7 +60,7 @@ id | The id of the account to retrieve
 ```shell
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
-  -d '{"hippanotifications": true}'\
+  -d '{"hipaanotifications": true}'\
   -X PUT \
   https://api.pagertree.com/user/:id
 ```
@@ -76,7 +76,7 @@ curl -H "Content-Type: application/json" \
   "name": "PagerTree LLC",
   "setup_complete": 1524787386,
   "token_id": "tkn_ByGE2ukxpf",
-  "hippanotifications": true,
+  "hipaanotifications": true,
   "active": true,
   "stripe_customer_id": "cus_CkpiEkrJ40EIJd",
   "stripe_customer": {...},
