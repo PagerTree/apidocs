@@ -27,6 +27,8 @@ The PagerTree API is organized around REST. Our API has predictable, resource-or
 
 # Authentication
 
+## JSON Web Token (JWT)
+
 > To authenticate, use this code:
 
 ```shell
@@ -53,6 +55,30 @@ PagerTree uses JSON Web Tokens (JWTs) to allow access to the API. You will need 
 <aside class="notice">
 You must replace <code>&lt;token&gt;</code> with your personal token.
 </aside>
+
+## API Key + Secret
+
+Additionally, PagerTree can authenticate via API Key + Secret. To make a request using your API Key + Secret place them in the appropriate request headers.
+
+`x-api-key: <key>`
+
+`x-api-secret: <secret>`
+
+If you do not know where to get your API Key + Secret, please [see the docs](https://pagertree.com/knowledge-base/users/#API-Key).
+
+```shell
+curl -H "Content-Type: application/json" \
+  -H "x-api-key: <key>" \
+  -H "x-api-secret: <secret>" \
+  https://api.pagertree.com/account/:id
+```
+
+> Make sure to replace `<key>` and `<secret>` with your api key + secret.
+
+<aside class="notice">
+You must replace <code>&lt;key&gt;</code> and <code>&lt;secret&gt;</code> with your personal key + secret.
+</aside>
+
 
 # Errors
 
