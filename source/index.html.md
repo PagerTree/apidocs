@@ -114,7 +114,7 @@ All top-level API resources have support for bulk fetches via the "list" API met
 
 Alternatively you may request pages by providing these two parameters: `limit` and `page`.
 
-### Pagination Parameters
+## Pagination Parameters
 
 Parameter | Default | Description
 --------- | ----------- | -----------
@@ -122,7 +122,7 @@ limit | 10 | A limit on the number of objects to be returned, between 1 and 100
 offset | 0 | A cursor to use in pagination. The number of elements to skip.
 page | 1 | A cursor to use in pagination. Uses the limit to calculate current offset.
 
-### Response Format
+## Response Format
 
 Parameter | Type | Description
 --------- | ----------- | -----------
@@ -130,7 +130,7 @@ data | array | The array of objects requested.
 has_more | boolean | Whether or not there are more elements available after this request. If `false`, this list comprises the end of the set.
 total_count | number | Number of total elements that exist.
 
-### Filter Parameters
+## Filter Parameters
 
 For any resource you are querying via the top-level API you can pass any attributes of those objects to filter on.
 
@@ -140,7 +140,7 @@ An example query url might look like the following:
 
 You can also pass modifiers to modify the filters. The modifiers must be in the query parameter `ops` and have the format `<attribute_name>:<operation>`, where operation is any of the following:
 
-### Operators
+## Operators
 
 Name | Type | Comparison
 ---- | ---- | ----------
@@ -152,7 +152,55 @@ gt | > | attribute > value
 gte | >= | attribute >= value
 beginsWith | string begins with | attribute.beginsWith(value)
 contains | string or array contains | attribute.contains(value)
+expand | reserved word | [see below](#expansion)
 
 An example query url might look like the following:
 
 `https://api.pagertree.com/user?name=austin&ops=name:beginsWith`
+
+## Expansion
+
+PagerTree additionally supports expanding objects in the response by using the `expand` query parameter with the format `<id_attribute>:<expanded_object_path>`.
+
+If you would like to request multiple objects be expanded use the same format as above joined with a `,`.
+
+An example query url might look like the following:
+
+`https://api.pagertree.com/event/:id?expand=user_id:user,schedule_id:schedule`
+
+```shell
+curl -H "Content-Type: application/json" \
+  -H "Authorization: <token>" \
+  https://api.pagertree.com/event/:id?expand=user_id:user,schedule_id:schedule`
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "sid":"acc_H1fh_yx6z",
+  "id":"evt_rJ0XMGWTM",
+  "createdAt":"2018-04-27T21:12:05.774Z",
+  "schedule_id":"skd_BJzQnuklaG",
+  "user_id":"usr_r1mnuJg6z",
+  "layer":1,
+  "start":1524898800,
+  "end":1524985200,
+  "repeat":false,
+  "dow":[1,2,3,4,5,6,7],
+  "frequency":1,
+  "exceptions":[],
+  "user": {
+    "sid": "acc_H1fh_yx6z",
+    "id": "usr_r1mnuJg6z",
+    "name": "Austin",
+    "email": "austinrmiller1991@gmail.com",
+    ...
+  },
+  "schedule": {
+    "sid":"acc_H1fh_yx6z",
+    "id":"skd_BJzQnuklaG",
+    ...
+  }
+}
+```
