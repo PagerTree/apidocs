@@ -62,7 +62,7 @@ curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
   -d '{"hipaanotifications": true}'\
   -X PUT \
-  https://api.pagertree.com/user/:id
+  https://api.pagertree.com/account/:id
 ```
 
 > The above command returns JSON structured like this:
