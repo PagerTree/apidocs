@@ -56,12 +56,12 @@ sid | string | Security identifier for the object.
 id | string | Unique identifier for the object.
 createdAt | timestamp | When this object was first created.
 updatedAt | timestamp | When this object last updated.
-meta | object | Metadata
+meta | object | Free form metadata.
 name | string | The name of the account.
 token_id | string | The unique identifier of the token to use for invites to join the account.
-stripe | object | The Stripe customer / subscription
-sso | object | Single Sign On settings
-notification_templates | object | Notification templates for the different notification type_subtype
+stripe | object | The Stripe customer / subscription.
+sso | object | Single Sign On settings.
+notification_templates | object | Notification templates for the different notification .type_subtype
 
 ## Retrieve an account
 
