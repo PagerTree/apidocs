@@ -136,7 +136,7 @@ See the [alert object](#alert) for optional parameters.
 
 ### Returns
 
-The newly created alert object if the request succeeded. Returns [an error](#errors) otherwise.
+The newly created [alert object](#alert) if the request succeeded. Returns [an error](#errors) otherwise.
 
 ## Retrieve an Alert
 
