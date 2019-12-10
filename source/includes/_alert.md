@@ -1,6 +1,6 @@
 # Alert
 
-A alert represents an urgent notice (state of alarm). It can also represent a broadcast, page, or stakeholder notice.
+An alert represents an urgent notice (state of alarm). It can also represent a broadcast, page, or stakeholder notice.
 
 > Alert Object
 
