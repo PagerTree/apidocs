@@ -123,7 +123,7 @@ curl -H "Content-Type: application/json" \
 
 ### Definition
 
-`POST https://api.pagertree.com/event`
+`POST https://api.pagertree.com/alert`
 
 ### Body Parameters
 
