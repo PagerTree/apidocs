@@ -216,7 +216,7 @@ id | The id of the alert to delete
 
 A `204 - NO CONTENT` on success or `404 - NOT FOUND` on failure.
 
-## List all alerts
+## List all Alerts
 
 > Example Request
 
