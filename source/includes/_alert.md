@@ -109,6 +109,7 @@ handoffs | array | An array of objects containing information regarding handoffs
 - Set the `meta.incident` to true to flag this as an incident.
 - Set the `meta.incident_severity` to set the severity. (SEV-1|SEV-2|SEV-3|SEV-4|SEV-5)
 - Set the `meta.incident_message` to set the special incident message.
+- Possible user provided values for subtype: (alert|broadcast|page)
 
 ## Create an Alert
 
