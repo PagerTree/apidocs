@@ -57,7 +57,7 @@ id | The id of the broadcast to retrieve
 ### Returns
 Returns the [alert object](#alert) if a valid broadcast `id` was provided. Returns [an error](#errors) otherwise.
 
-## Delete an Broadcast
+## Delete a Broadcast
 
 > Example Request
 
