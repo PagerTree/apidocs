@@ -1,61 +1,54 @@
 # Integration
 
-A integration connects PagerTree to 3rd party applications.
+An integration connects PagerTree to 3rd party applications.
 
-## The integration object
-
-> Example Response
+> Integration Object
 
 ```json
 {
   "sid":"acc_H1fh_yx6z",
-  "id":"int_Skbm3OJe6f",
-  "createdAt":"2018-04-27T00:02:51.011Z",
-  "updatedAt":"2018-04-27T19:38:47.220Z",
+  "id":"atm_HJ3eGW-6M",
+  "createdAt": "2018-04-27T00:02:50.419Z",
+  "updatedAt": "2018-04-27T00:03:06.098Z",
+  "meta": {
+    "key": "value",
+    ...
+  },
+  "tinyId": 1,
   "name":"Devops Email",
   "type":"email",
-  "d_team_id":"tem_ByxQ3ukgTM",
-  "urgency":"medium",
-  "enabled":true
+  "enabled":true,
+  "urgency": "high",
+  "destination_ids":["tem_ByxQ3ukgTM"],
+  "options":{...},
+  
 }
 ```
 
 Parameter | Type | Description
---------- | ---- | -----------
+--------- | ---- | ------------
 sid | string | Security identifier for the object.
 id | string | Unique identifier for the object.
 createdAt | timestamp | When this object was first created.
 updatedAt | timestamp | When this object last updated.
-name | string | The name of the integration.
-type | string | The type of the integration.
-d_team_id | string | The destination team id for any incident created from this integration.
-urgency | string | The urgency of the incident to be created.
-enabled | boolean | If enabled the integration will create incidents, if not it will ignore incoming requests.
+meta | object | Free form metadata.
+tinyId | number | Human friendly id.
+name | The name of the integration.
+type | The type of the integration.
+enabled | Flag indicating if the integration is currently enabled
+urgency | Default urgency of alerts created by this integration
+destination_ids | Array of destinations to route alerts created by this integration. Can be team, router, user, or schedule ids.
+options | Integration specific options
 
-## Create a integration
+## Create an Integration
 
 > Example Request
 
 ```shell
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
-  -d '{"sid":"acc_H1fh_yx6z","enabled":true,"name":"Apex Ping Integration","type":"apexping","urgency":"critical","d_team_id":"tem_ByxQ3ukgTM"}'\
+  -d '{"name":"Email Integration", "type": "email", "destination_ids": ["tem_xxxxxxx"]}'\
   https://api.pagertree.com/integration
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "sid":"acc_H1fh_yx6z",
-  "id":"int_BJOG0gZpz",
-  "createdAt":"2018-04-27T19:46:24.394Z",
-  "name":"Apex Ping Integration",
-  "type":"apexping",
-  "urgency":"critical",
-  "d_team_id":"tem_ByxQ3ukgTM",
-  "enabled": true
-}
 ```
 
 ### Definition
@@ -66,17 +59,17 @@ curl -H "Content-Type: application/json" \
 
 Parameter | Description
 --------- | -----------
-name | The name of the integration.
-type | The type of the integration.
-d_team_id | The destination team id for any incident created from this integration.
+name | Friendly name for the integration
+type | The integration type
+destination_ids | The destinations to route alerts to when created by this integration
 
-See the [integration object](#the-integration-object) for optional parameters.
+See the [integration object](#integration) for optional parameters.
 
 ### Returns
 
-The newly created integration object if the request succeeded. Returns [an error](#errors) otherwise.
+The newly created [integration object](#integration) if the request succeeded. Returns [an error](#errors) otherwise.
 
-## Retrieve a integration
+## Retrieve an Integration
 
 > Example Request
 
@@ -84,22 +77,6 @@ The newly created integration object if the request succeeded. Returns [an error
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
   https://api.pagertree.com/integration/:id
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "sid":"acc_H1fh_yx6z",
-  "id":"int_BJOG0gZpz",
-  "createdAt":"2018-04-27T19:46:24.394Z",
-  "updatedAt":"2018-04-27T19:50:29.785Z",
-  "name":"Apex Ping Integration",
-  "type":"apexping",
-  "urgency":"critical",
-  "d_team_id":"tem_ByxQ3ukgTM",
-  "enabled": true
-}
 ```
 
 ### Definition
@@ -113,34 +90,18 @@ Parameter | Description
 id | The id of the integration to retrieve
 
 ### Returns
-Returns a integration if a valid integration `id` was provided. Returns [an error](#errors) otherwise.
+Returns the [integration object](#integration) if a valid integration `id` was provided. Returns [an error](#errors) otherwise.
 
-## Update a integration
+## Update an Integration
 
 > Example Request
 
 ```shell
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
-  -d '{"enabled": "false"}'\
+  -d '{"enabled": false}'\
   -X PUT \
   https://api.pagertree.com/integration/:id
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "sid":"acc_H1fh_yx6z",
-  "id":"int_BJOG0gZpz",
-  "createdAt":"2018-04-27T19:46:24.394Z",
-  "updatedAt":"2018-04-27T19:50:29.785Z",
-  "name":"Apex Ping Integration",
-  "type":"apexping",
-  "urgency":"critical",
-  "d_team_id":"tem_ByxQ3ukgTM",
-  "enabled": false
-}
 ```
 
 ### Definition
@@ -153,12 +114,14 @@ Parameter | Description
 --------- | -----------
 id | The id of the integration to update
 
-See the [integration object](#the-integration-object) for all parameters.
+### Body Parameters
+
+See the [integration object](#integration) for all parameters.
 
 ### Returns
-The newly updated integration object if the request succeeded. Returns [an error](#errors) otherwise.
+The newly updated [integration object](#integration) if the request succeeded. Returns [an error](#errors) otherwise.
 
-## Delete a integration
+## Delete an Integration
 
 > Example Request
 
@@ -184,7 +147,10 @@ id | The id of the integration to delete
 
 A `204 - NO CONTENT` on success or `404 - NOT FOUND` on failure.
 
-## List all integrations
+#### Notes
+This could have unintended consequences if references by 3rd party systems.
+
+## List all Integrations
 
 > Example Request
 
@@ -212,4 +178,4 @@ curl -H "Content-Type: application/json" \
 `GET https://api.pagertree.com/integration`
 
 ### Returns
-A paginated response with a `data` array property. Each item in the array is a integration object.
+A paginated response with a `data` array property. Each item in the array is an [integration object](#integration).
