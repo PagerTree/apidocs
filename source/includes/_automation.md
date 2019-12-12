@@ -79,7 +79,7 @@ curl -H "Content-Type: application/json" \
 Parameter | Description
 --------- | -----------
 name | Friendly name for the automation
-settings | YAML defination for the HTTP request
+settings | YAML definition for the HTTP request
 
 See the [automation object](#automation) for optional parameters.
 
