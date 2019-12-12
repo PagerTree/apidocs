@@ -14,6 +14,7 @@ includes:
  - integration
  - log
  - notification
+ - router
  - schedule
  - team
  - token
@@ -109,7 +110,6 @@ Error Code | Meaning | Description
 429 | Too Many Requests | Too many request hit the API too quickly. We recommend an exponential backoff.
 500 | Internal Server Error | Something went wrong on PagerTree's servers. (These are rare.)
 
-
 # Pagination and Filters
 All top-level API resources have support for bulk fetches via the "list" API methods. These list API methods share a common structure, taking at least these two parameters: `limit` and `offset`.
 
@@ -159,49 +159,18 @@ An example query url might look like the following:
 
 `https://api.pagertree.com/user?name=austin&ops=name:beginsWith`
 
-## Expansion
+## Sorting
 
-PagerTree additionally supports expanding objects in the response by using the `expand` query parameter with the format `<id_attribute>:<expanded_object_path>`.
-
-If you would like to request multiple objects be expanded use the same format as above joined with a `,`.
+For any resource you are querying via the top-level API you can pass the `sort` parameter to query by sort.
 
 An example query url might look like the following:
 
-`https://api.pagertree.com/event/:id?expand=user_id:user,schedule_id:schedule`
+`https://api.pagertree.com/user?sort=-createdAt`
 
-```shell
-curl -H "Content-Type: application/json" \
-  -H "Authorization: <token>" \
-  https://api.pagertree.com/event/:id?expand=user_id:user,schedule_id:schedule`
-```
+## Selecting
 
-> The above command returns JSON structured like this:
+For any resource you are querying via the top-level API you can pass the `select` parameter to return only certain attributes. This is **highly recommended** as it will speed up your querys.
 
-```json
-{
-  "sid":"acc_H1fh_yx6z",
-  "id":"evt_rJ0XMGWTM",
-  "createdAt":"2018-04-27T21:12:05.774Z",
-  "schedule_id":"skd_BJzQnuklaG",
-  "user_id":"usr_r1mnuJg6z",
-  "layer":1,
-  "start":1524898800,
-  "end":1524985200,
-  "repeat":false,
-  "dow":[1,2,3,4,5,6,7],
-  "frequency":1,
-  "exceptions":[],
-  "user": {
-    "sid": "acc_H1fh_yx6z",
-    "id": "usr_r1mnuJg6z",
-    "name": "Austin",
-    "email": "austinrmiller1991@gmail.com",
-    ...
-  },
-  "schedule": {
-    "sid":"acc_H1fh_yx6z",
-    "id":"skd_BJzQnuklaG",
-    ...
-  }
-}
-```
+An example query url might look like the following:
+
+`https://api.pagertree.com/user?select=sid,id`
