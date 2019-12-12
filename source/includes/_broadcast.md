@@ -1,8 +1,6 @@
 # Broadcast
 
-A broadcast is mass alert that can be sent to users and teams. Please use the [alert](#alert) api as these endpoints are DEPRECATED and only provided as convinience. It's possible they be removed at any time.
-
-## The Broadcast object
+A broadcast is mass alert that can be sent to users and teams. Please use the [alert](#alert) api as these endpoints are **DEPRECATED** and only provided as convinience. It's possible they be removed at any time.
 
 See the [alert](#alert) object for details.
 

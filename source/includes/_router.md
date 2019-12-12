@@ -200,7 +200,7 @@ curl -H "Content-Type: application/json" \
 
 ### Definition
 
-`POST https://api.pagertree.com/router/default-template/:type`
+`GET https://api.pagertree.com/router/default-template/:type`
 
 ### URL Parameters
 
