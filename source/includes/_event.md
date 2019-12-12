@@ -1,75 +1,63 @@
 # Event
 
-An event represents a calendar event. It can be one time or recurring.
+An event represents a calendar event. It describes a time frame (possibly repeating) where attendees are scheduled. An event is assigned to one or more schedules.
 
-## The event object
-
-> Example Response
+> Event Object
 
 ```json
 {
   "sid":"acc_H1fh_yx6z",
-  "id":"evt_rJ0XMGWTM",
-  "createdAt":"2018-04-27T21:12:05.774Z",
-  "updatedAt":"2018-04-27T21:22:47.927Z",
-  "schedule_id":"skd_BJzQnuklaG",
-  "user_id":"usr_r1mnuJg6z",
-  "start":1524898800,
-  "end":1524985200,
-  "repeat":false,
-  "layer":2,
-  "dow":[0,1,2,3,4,5,6],
-  "frequency":1,
-  "exceptions":[]
+  "id":"skd_HJ3eGW-6M",
+  "createdAt": "2018-04-27T00:02:50.419Z",
+  "updatedAt": "2018-04-27T00:03:06.098Z",
+  "meta": {
+    "key": "value",
+    ...
+  },
+  "tinyId": 1,
+  "schedule_id": ["skd_xxxxxxxx"],
+  "attendees": ["usr_xxxxxxxx", "usr_yyyyyyyy"],
+  "layer": 1,
+  "start": 1575964800,
+  "end": 1576051200,
+  "repeat": false,
+  "timezone": "America/Los_Angeles",
+  "dow": [0,1,2,3,4,5,6],
+  "frequency": 1,
+  "frequency_unit": "daily",
+  "repeatend": 1576051200,
+  "exceptions": [
+    { "start": 1575964800, "event_id": "evt_xxxxxxx"}
+    ...
+  ],
+  "next": {...}
 }
 ```
 
 Parameter | Type | Description
---------- | ---- | -----------
+--------- | ---- | ------------
 sid | string | Security identifier for the object.
 id | string | Unique identifier for the object.
 createdAt | timestamp | When this object was first created.
 updatedAt | timestamp | When this object last updated.
-schedule_id | string | The schedule id that this event belongs to.
-user_id | string | The user id that this event belongs to.
-layer | number | The layer of this event.
-start | number | A unix timestamp of when the event starts.
-end | number | A unix timestamp of when the event ends.
-repeat | boolean | Flag indicating if this is a reoccurring event.
-repeatend | number | A unix timestamp of when the repeating event ends.
-p_event_id | string | If this event is recurring, and a modified occurrence, the parent event id of the repeating event.
-dow | array | Array of days of the week this event repeats on 0 (Sunday) - 6 (Saturday). [Moment Day of Week](https://momentjs.com/docs/#/get-set/day/)
-frequency | number | Number of days between repeats.
-exceptions | object | An array of unix timestamps of the start date of the exceptions.
+meta | object | Free form metadata.
+tinyId | number | Human friendly id.
+schedule_id | array | Array of strings, schedule ids, this event belongs to.
+attendees | array | Array of strings, user ids, that are attending this event.
+layer | number | The escalation layer of this event.
+start | number | The unix timestamp of when this event starts
+end | number | The unix timestamp of when this events ends
+repeat | boolean | Flag indicating if this is a repeating event
 
-## Create a event
+## Create an Event
 
 > Example Request
 
 ```shell
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
-  -d '{"schedule_id":"skd_BJzQnuklaG","user_id":"usr_r1mnuJg6z","start":1524898800,"end":1524985200}'\
+  -d '{"schedule_id":["skd_xxxxxxxx"],"attendees": ["usr_xxxxxxxx", "usr_yyyyyyyy"], "layer": 1, "start": 1576137600, "end": 1576224000}'\
   https://api.pagertree.com/event
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "sid":"acc_H1fh_yx6z",
-  "id":"evt_rJ0XMGWTM",
-  "createdAt":"2018-04-27T21:12:05.774Z",
-  "schedule_id":"skd_BJzQnuklaG",
-  "user_id":"usr_r1mnuJg6z",
-  "layer":1,
-  "start":1524898800,
-  "end":1524985200,
-  "repeat":false,
-  "dow":[1,2,3,4,5,6,7],
-  "frequency":1,
-  "exceptions":[]
-}
 ```
 
 ### Definition
@@ -80,18 +68,19 @@ curl -H "Content-Type: application/json" \
 
 Parameter | Description
 --------- | -----------
-schedule_id | The id of the schedule that this event belongs to.
-user_id | The id of the user that this event belongs to.
-start | The start timestamp (unix) of the event.
-end | The end timestamp (unix) of the event.
+schedule_id | Array of schedule ids this event belongs to
+attendees | Array of user ids that will be attending this event
+layer | The escalation layer of the event
+start | The unix timestamp of the start of the event
+end | The unix timestamp of the end of the event
 
-See the [event object](#the-event-object) for optional parameters.
+See the [event object](#event) for optional parameters.
 
 ### Returns
 
-The newly created event object if the request succeeded. Returns [an error](#errors) otherwise.
+The newly created [event object](#event) if the request succeeded. Returns [an error](#errors) otherwise.
 
-## Retrieve a event
+## Retrieve an Event
 
 > Example Request
 
@@ -99,31 +88,6 @@ The newly created event object if the request succeeded. Returns [an error](#err
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
   https://api.pagertree.com/event/:id
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "sid":"acc_H1fh_yx6z",
-  "id":"evt_S1mmhd1gaM",
-  "createdAt":"2018-04-27T00:02:51.374Z",
-  "updatedAt":"2018-04-27T21:30:46.258Z",
-  "schedule_id":"skd_BJzQnuklaG",
-  "repeat":true,
-  "user_id":"usr_r1mnuJg6z",
-  "layer":1,
-  "start":1524726000,
-  "end":1524812400,
-  "dow":[1,2,3,4,5,6,7],
-  "frequency":1,
-  "exceptions": [
-    {
-      "start":1526022000,
-      "event_id":null
-    }
-  ]
-}
 ```
 
 ### Definition
@@ -137,43 +101,23 @@ Parameter | Description
 id | The id of the event to retrieve
 
 ### Returns
-Returns a event if a valid event `id` was provided. Returns [an error](#errors) otherwise.
+Returns the [event object](#event) if a valid event `id` was provided. Returns [an error](#errors) otherwise.
 
-## Update a event
+## Update an Event
 
 > Example Request
 
 ```shell
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
-  -d '{"layer": 2}'\
+  -d '{"enabled": false}'\
   -X PUT \
   https://api.pagertree.com/event/:id
 ```
 
-> The above command returns JSON structured like this:
-
-```json
-{
-  "sid":"acc_H1fh_yx6z",
-  "id":"evt_rJ0XMGWTM",
-  "createdAt":"2018-04-27T21:12:05.774Z",
-  "updatedAt":"2018-04-27T21:22:47.927Z",
-  "schedule_id":"skd_BJzQnuklaG",
-  "user_id":"usr_r1mnuJg6z",
-  "start":1524898800,
-  "end":1524985200,
-  "repeat":false,
-  "layer":2,
-  "dow":[1,2,3,4,5,6,7],
-  "frequency":1,
-  "exceptions":[]
-}
-```
-
 ### Definition
 
-`PUT https://api.pagertree.com/event/:id`
+`PUT https://api.pagertree.com/automation/:id`
 
 ### URL Parameters
 
@@ -181,12 +125,14 @@ Parameter | Description
 --------- | -----------
 id | The id of the event to update
 
-See the [event object](#the-event-object) for all parameters.
+### Body Parameters
+
+See the [event object](#event) for all parameters.
 
 ### Returns
-The newly updated event object if the request succeeded. Returns [an error](#errors) otherwise.
+The newly updated [event object](#event) if the request succeeded. Returns [an error](#errors) otherwise.
 
-## Delete a event
+## Delete an Event
 
 > Example Request
 
@@ -212,7 +158,7 @@ id | The id of the event to delete
 
 A `204 - NO CONTENT` on success or `404 - NOT FOUND` on failure.
 
-## List all events
+## List all Events
 
 > Example Request
 
@@ -240,4 +186,5 @@ curl -H "Content-Type: application/json" \
 `GET https://api.pagertree.com/event`
 
 ### Returns
-A paginated response with a `data` array property. Each item in the array is a event object.
+A paginated response with a `data` array property. Each item in the array is an [event object](#event).
+
