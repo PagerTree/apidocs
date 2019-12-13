@@ -153,7 +153,6 @@ gt | > | attribute > value
 gte | >= | attribute >= value
 beginsWith | string begins with | attribute.beginsWith(value)
 contains | string or array contains | attribute.contains(value)
-expand | reserved word | [see below](#expansion)
 
 An example query url might look like the following:
 
