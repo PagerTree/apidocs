@@ -18,7 +18,6 @@ includes:
  - schedule
  - stakeholder
  - team
- - token
  - user
 
 search: true
@@ -67,7 +66,7 @@ Additionally, PagerTree can authenticate via API Key + Secret. To make a request
 
 `x-api-secret: <secret>`
 
-If you do not know where to get your API Key + Secret, please [see the docs](https://pagertree.com/knowledge-base/users/#API-Key).
+If you do not know where to get your API Key + Secret, please [see the docs](https://pagertree.com/knowledge-base/users/#api-key).
 
 ```shell
 curl -H "Content-Type: application/json" \
