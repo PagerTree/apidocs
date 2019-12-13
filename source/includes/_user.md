@@ -2,8 +2,6 @@
 
 A user represents an actual person in your organization.
 
-## The user object
-
 > Example Response
 
 ```json
@@ -12,20 +10,56 @@ A user represents an actual person in your organization.
   "id": "usr_r1mnuJg6z",
   "createdAt": "2018-04-27T00:02:50.662Z",
   "updatedAt": "2018-04-27T15:35:41.139Z",
-  "lastlogin": 1524787371,
-  "name": "Austin",
-  "email": "austinrmiller1991@gmail.com",
+  "meta": {
+    "key": "value",
+    ...
+  },
+  "tinyId": 1,
+  "name": "Austin Miller",
+  "avatar": "https://pagertree.com/assets/img/logo/pagertree-icon-256-256.png",
+  "emails": [
+    {
+      "email": "austinrmiller1991@gmail.com",
+      "verified": 1576256550,
+      "blocked": false,
+      "updatedat": 1576256550,
+      "verificationcode": "NkSKkyHsvPaiiABMAZFsEw19yomfygsFwU4KgK3ROa27JQLi4U4l0u9KwhLV",
+      "verificationcode_updatedat": 1576256550
+    },
+    ...
+  ],
+  "phones": [
+    {
+      "phone": "+15303413302",
+      "country": "US",
+      "verified": 1576256550,
+      "blocked": false,
+      "updatedat": 1576256550,
+      "verificationcode": "NkSKkyHsvPaiiABMAZFsEw19yomfygsFwU4KgK3ROa27JQLi4U4l0u9KwhLV",
+      "verificationcode_updatedat": 1576256550,
+      "sms_enabled": true,
+      "voice_enabled": true,
+    },
+    ...
+  ],
+  "password": "NkSKkyHsvPaiiABMAZFsEw19yomfygsFwU4KgK3ROa27JQLi4U4l0u9KwhLV",
+  "slack": {...},
+  "router_id": "rtr_xxxxxxx",
+  
   "preferences": {
-      "alert_slack": false,
-      "alert_email": true,
-      "alert_voice": false,
-      "report_performance": true,
-      "report_oncall": true,
-      "timezone": "America/Los_Angeles",
-      "wizard_dragdrop": true,
       "alert_push": true,
+      "alert_email": true,
       "alert_sms": false,
-      "wizard_quickcreate": true
+      "alert_voice": false,
+      "alert_slack": false,
+      "alert_goc": false,
+      "advanced_mode": false,
+      "debug_mode": false,
+      "locale": "en",
+      "timezone": "America/Los_Angeles",
+      "moment_format": "LLLL",
+      "ui_calendar_firstday": 0,
+      ...
   },
    "roles": {
        "broadcast": true,
@@ -41,48 +75,27 @@ sid | string | Security identifier for the object.
 id | string | Unique identifier for the object.
 createdAt | timestamp | When this object was first created.
 updatedAt | timestamp | When this object last updated.
-lastlogin | number | A unix timestamp of the last login.
+meta | object | Free form metadata.
+tinyId | number | Human friendly id.
 name | string | The name of the user.
-email | string | The email of the user.
-email_verfied | number | A unix timestamp of when the user verified their email.
-email_blocked | boolean | Flag indicating if PagerTree blocked this users email because of a spam or bounce response.
-phone | string | The phone number of the user
-phone_verified | number | A unix timestamp of when the user verified their phone.
-phone_blocked | boolean | Flag indicating if PagerTree blocked this users phone because of a misuse.
+avatar | string | Avatar url.
+emails | array | Array of email objects.
+phones | array | Array of phone objects.
+password | string | Users encrypted password. (PagerTree managed)
+slack | object | Slack object. (PagerTree managed)
+router_id | string | A route id of for notification rules for this user
 preferences | object | A hash of user preferences
 roles | object | A hash of user roles
 
-## Create a user
+## Create a User
 
 > Example Request
 
 ```shell
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
-  -d '{"name": "Austin", "email": "austinrmiller1991@gmail.com"}'\
+  -d '{"name": "Austin Miller", "emails": [{"email": "austinrmiller1991@gmail.com"}] }'\
   https://api.pagertree.com/user
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "sid": "acc_H1fh_yx6z",
-  "id": "usr_r1mnuJg6z",
-  "createdAt": "2018-04-27T00:02:50.662Z",
-  "name": "Austin",
-  "email": "austinrmiller1991@gmail.com",
-  "preferences": {
-      "alert_push": true,
-      "alert_email": true,
-      "alert_email": true,
-      "alert_voice": false,
-      "alert_slack": false,
-      "report_performance": true,
-      "report_oncall": true,
-  },
-   "roles": {}
-}
 ```
 
 ### Definition
@@ -94,15 +107,15 @@ curl -H "Content-Type: application/json" \
 Parameter | Description
 --------- | -----------
 name | The name of the user.
-email | The email of the user.
+emails | The email array for the user.
 
-See the [user object](#the-user-object) for optional parameters.
+See the [user object](#user) for optional parameters.
 
 ### Returns
 
-The newly created user object if the request succeeded. Returns [an error](#errors) otherwise.
+The newly created [user object](#user) if the request succeeded. Returns [an error](#errors) otherwise.
 
-## Retrieve a user
+## Retrieve a User
 
 > Example Request
 
@@ -110,37 +123,6 @@ The newly created user object if the request succeeded. Returns [an error](#erro
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
   https://api.pagertree.com/user/:id
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "sid": "acc_H1fh_yx6z",
-  "id": "usr_r1mnuJg6z",
-  "createdAt": "2018-04-27T00:02:50.662Z",
-  "updatedAt": "2018-04-27T15:35:41.139Z",
-  "lastlogin": 1524787371,
-  "name": "Austin",
-  "email": "austinrmiller1991@gmail.com",
-  "preferences": {
-      "alert_slack": false,
-      "alert_email": true,
-      "alert_voice": false,
-      "report_performance": true,
-      "report_oncall": true,
-      "timezone": "America/Los_Angeles",
-      "wizard_dragdrop": true,
-      "alert_push": true,
-      "alert_sms": false,
-      "wizard_quickcreate": true
-  },
-   "roles": {
-       "broadcast": true,
-       "admin": true,
-       "admin_billing": true
-   }
-}
 ```
 
 ### Definition
@@ -154,48 +136,18 @@ Parameter | Description
 id | The id of the user to retrieve
 
 ### Returns
-Returns a user if a valid user `id` was provided. Returns [an error](#errors) otherwise.
+Returns a [user object](#user) if a valid user `id` was provided. Returns [an error](#errors) otherwise.
 
-## Update a user
+## Update a User
 
 > Example Request
 
 ```shell
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
-  -d '{"name": "Austin Miller"}'\
+  -d '{"name": "Austin Ryan Miller"}'\
   -X PUT \
   https://api.pagertree.com/user/:id
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "sid": "acc_H1fh_yx6z",
-  "id": "usr_r1mnuJg6z",
-  "createdAt": "2018-04-27T00:02:50.662Z",
-  "updatedAt": "2018-04-27T15:35:41.139Z",
-  "name": "Austin Miller",
-  "email": "austinrmiller1991@gmail.com",
-  "preferences": {
-      "alert_slack": false,
-      "alert_email": true,
-      "alert_voice": false,
-      "report_performance": true,
-      "report_oncall": true,
-      "timezone": "America/Los_Angeles",
-      "wizard_dragdrop": true,
-      "alert_push": true,
-      "alert_sms": false,
-      "wizard_quickcreate": true
-  },
-   "roles": {
-       "broadcast": true,
-       "admin": true,
-       "admin_billing": true
-   }
-}
 ```
 
 ### Definition
@@ -208,12 +160,12 @@ Parameter | Description
 --------- | -----------
 id | The id of the user to update
 
-See the [user object](#the-user-object) for all parameters.
+See the [user object](#user) for all parameters.
 
 ### Returns
-The newly updated user object if the request succeeded. Returns [an error](#errors) otherwise.
+The newly updated [user object](#user) if the request succeeded. Returns [an error](#errors) otherwise.
 
-## Delete a user
+## Delete a User
 
 > Example Request
 
@@ -239,7 +191,7 @@ id | The id of the user to delete
 
 A `204 - NO CONTENT` on success or `404 - NOT FOUND` on failure.
 
-## List all users
+## List all Users
 
 > Example Request
 
@@ -267,49 +219,35 @@ curl -H "Content-Type: application/json" \
 `GET https://api.pagertree.com/user`
 
 ### Returns
-A paginated response with a `data` array property. Each item in the array is a user object.
+A paginated response with a `data` array property. Each item in the array is a [user object](#user).
 
-## List all current events for a user
+## Add User to Teams
 
 > Example Request
 
 ```shell
 curl -H "Content-Type: application/json" \
   -H "Authorization: <token>" \
-  https://api.pagertree.com/user/:id/currentevents
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "sid":"acc_H1fh_yx6z",
-    "id":"evt_rJ0XMGWTM",
-    "createdAt":"2018-04-27T21:12:05.774Z",
-    "updatedAt":"2018-04-27T21:22:47.927Z",
-    "schedule_id":"skd_BJzQnuklaG",
-    "user_id":"usr_r1mnuJg6z",
-    "start":1524898800,
-    "end":1524985200,
-    "repeat":false,
-    "layer":2,
-    "dow":[1,2,3,4,5,6,7],
-    "frequency":1,
-    "exceptions":[]
-  }
-]
+  -X POST \
+  -d '{"team_ids": ["tem_xxxxxx", "tem_yyyyyyy"] }'\
+  https://api.pagertree.com/user/:id/add-to-teams
 ```
 
 ### Definition
 
-`GET https://api.pagertree.com/user/:id/currentevents`
+`POST https://api.pagertree.com/user/:id/add-to-teams`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-id | The id of the user to get current events for
+id | The id of the automation to run
+
+### Body Parameters
+
+Parameter | Description
+--------- | -----------
+team_ids | Array of team ids to add the user to
 
 ### Returns
-An array of any events in which the user is currently on-call for. Each item in the array is a event object.
+`200 - OK` if successful. Returns [an error](#errors) otherwise.
