@@ -7,7 +7,7 @@ An integration connects PagerTree to 3rd party applications.
 ```json
 {
   "sid":"acc_H1fh_yx6z",
-  "id":"atm_HJ3eGW-6M",
+  "id":"int_HJ3eGW-6M",
   "createdAt": "2018-04-27T00:02:50.419Z",
   "updatedAt": "2018-04-27T00:03:06.098Z",
   "meta": {
