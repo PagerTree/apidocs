@@ -16,6 +16,7 @@ includes:
  - notification
  - router
  - schedule
+ - stakeholder
  - team
  - token
  - user
